@@ -1,0 +1,74 @@
+
+
+service: lambda
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+
+functions:
+  getpost:
+    handler: handler/admin/getpost.handler
+    events:
+     - httpApi:
+        path: /allpost
+        method: GET
+  
+  getusers: 
+    handler: handler/admin/getusers.handler
+    events:
+        - httpApi:
+           path: /admin/alluser
+           method: GET
+  #getusers:
+   # handler: handler/admin/getusers.handler  
+    #events:
+     # - schedule: rate(1 minute) 
+    #dependsOn:
+     # - authJwt
+    #events:
+     #   - httpApi:
+      #     path: /admin/alluser
+       #    method: GET
+
+
+
+      
+ 
+
+  signup:
+    handler: handler/user/signup.handler
+    events:
+      - httpApi:
+         path: /user/signup
+         method: POST
+  login:
+   handler: handler/user/login.handler
+   events: 
+      - httpApi:
+          path: /user/login
+          method: POST
+  adminlogin:
+   handler: handler/admin/adminlogin.handler
+   events:
+    - httpApi:
+         path: /admin/login
+         method: POST
+  postblog:
+   handler: handler/admin/postblog.handler
+   events:
+    - httpApi:
+       path: /admin/post
+       method: POST
+  
+    
+
+  
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
